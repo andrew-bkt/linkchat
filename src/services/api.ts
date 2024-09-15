@@ -1,12 +1,10 @@
-// frontend/src/services/api.ts
-
 import axios from 'axios';
 import supabase from '../utils/supabaseClient';
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  timeout: 10000, // Increase timeout for debugging purposes
-  maxRedirects: 5
+  timeout: 10000, // 10 seconds timeout
+  maxRedirects: 5, // Allow up to 5 redirects
 });
 
 api.interceptors.request.use(
@@ -16,28 +14,37 @@ api.interceptors.request.use(
     } = await supabase.auth.getSession();
 
     if (session && config.headers) {
-      console.log(`Authorization: Bearer ${session.access_token}`); // Add logging
+      console.log(`Authorization: Bearer ${session.access_token}`);
       config.headers['Authorization'] = `Bearer ${session.access_token}`;
     }
+
+    console.log(`Making request to: ${config.baseURL}${config.url}`);
     return config;
   },
   (error) => {
+    console.error('Error in request interceptor:', error);
     return Promise.reject(error);
   }
 );
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log('Response received:', response.status, response.data);
+    return response;
+  },
   (error) => {
-    console.error('Error fetching chatbots:', error);
+    console.error('Error in API call:', error);
     if (error.response) {
-      console.error('Data:', error.response.data);
       console.error('Status:', error.response.status);
+      console.error('Data:', error.response.data);
       console.error('Headers:', error.response.headers);
+      if (error.response.status >= 300 && error.response.status < 400) {
+        console.error('Redirect location:', error.response.headers.location);
+      }
     } else if (error.request) {
-      console.error('Request:', error.request);
+      console.error('No response received:', error.request);
     } else {
-      console.error('Error:', error.message);
+      console.error('Error setting up request:', error.message);
     }
     return Promise.reject(error);
   }
