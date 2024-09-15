@@ -1,9 +1,11 @@
 // frontend/src/services/api.ts
+
 import axios from 'axios';
 import supabase from '../utils/supabaseClient';
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
+  timeout: 10000, // Increase timeout for debugging purposes
 });
 
 api.interceptors.request.use(
@@ -13,12 +15,14 @@ api.interceptors.request.use(
     } = await supabase.auth.getSession();
 
     if (session && config.headers) {
-      console.log('Access Token:', session.access_token);
+      console.log(`Authorization: Bearer ${session.access_token}`); // Add logging
       config.headers['Authorization'] = `Bearer ${session.access_token}`;
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
 api.interceptors.response.use(
