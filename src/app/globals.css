@@ -1,21 +1,36 @@
-/* src/app/globals.css */
+/* frontend/src/app/globals.css */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Custom global styles */
-html,
-body {
-  @apply bg-background text-foreground font-sans;
+@layer base {
+  html,
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  a {
+    @apply text-primary hover:underline;
+  }
+
+  button {
+    @apply px-4 py-2 bg-primary text-white rounded hover:bg-primary/80 transition duration-300;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
 }
 
-a {
-  @apply text-primary underline;
-}
+/* Additional custom styles */
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
 
-button {
-  @apply px-4 py-2 bg-primary text-white rounded hover:bg-primary/80;
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+  }
 }
-
-/* Additional custom styles can be added here */

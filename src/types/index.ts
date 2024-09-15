@@ -9,6 +9,8 @@ export interface User {
   export interface Chatbot {
     id: string;
     name: string;
+    instructions?: string;
+    tone?: string;
     token: string;
-    // Add other chatbot properties as needed
+    documents?: string[];
   }

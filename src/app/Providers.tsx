@@ -10,7 +10,7 @@ export default function Providers({ children }: { children: ReactNode }) {
   return (
     <AuthProvider>
       <Navbar />
-      <main className="container mx-auto p-4">{children}</main>
+      <main className="flex flex-grow container mx-auto p-4">{children}</main>
     </AuthProvider>
   );
 }

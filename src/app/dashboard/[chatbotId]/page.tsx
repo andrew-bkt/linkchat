@@ -1,4 +1,4 @@
-// src/app/dashboard/[chatbotId]/page.tsx
+// frontend/src/app/dashboard/[chatbotId]/page.tsx
 
 'use client';
 
@@ -6,8 +6,11 @@ import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useAuth } from '../../../context/AuthContext';
 import api from '../../../services/api';
-import { Chatbot } from '../../../types';
+import { Chatbot } from '../../../types'; 
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
+
+const ChatbotForm = dynamic(() => import('../../../components/ChatbotForm'), { ssr: false });
 
 export default function ChatbotDetailsPage() {
   const { user } = useAuth();
@@ -35,28 +38,17 @@ export default function ChatbotDetailsPage() {
   if (!chatbot) return <div>Loading...</div>;
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded shadow">
-      <h1 className="text-2xl font-bold mb-4">{chatbot.name}</h1>
-      <p className="text-sm text-gray-600 mb-4">
-        Shareable Link:{' '}
-        <Link
-          href={`/chat/${chatbot.token}`}
-          className="text-primary hover:underline break-all"
-        >
-          {`${process.env.NEXT_PUBLIC_APP_URL}/chat/${chatbot.token}`}
-        </Link>
-      </p>
-      <div className="space-x-2">
-        <Link href={`/dashboard/${chatbot.id}/edit`}>
-          <button className="bg-secondary text-white px-4 py-2 rounded hover:bg-secondary/80">
-            Edit Chatbot
+    <div className="container mx-auto px-4 py-8">
+      <div className="mb-6 flex justify-between items-center">
+        <h1 className="text-3xl font-bold">{chatbot.name}</h1>
+        <Link href="/dashboard">
+          <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition duration-300">
+            Back to Dashboard
           </button>
         </Link>
-        <Link href={`/chat/${chatbot.token}`}>
-          <button className="bg-primary text-white px-4 py-2 rounded hover:bg-primary/80">
-            Open Chat
-          </button>
-        </Link>
+      </div>
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <ChatbotForm chatbot={chatbot} onSave={() => fetchChatbot()} />
       </div>
     </div>
   );
