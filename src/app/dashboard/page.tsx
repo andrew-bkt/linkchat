@@ -26,7 +26,7 @@ export default function DashboardPage() {
 
   const fetchChatbots = async () => {
     try {
-      const response = await api.get('/api/v1/chatbots');
+      const response = await api.get('/api/v1/chatbots/');
       setChatbots(response.data);
     } catch (error) {
       console.error('Error fetching chatbots:', error);
