@@ -6,6 +6,7 @@ import supabase from '../utils/supabaseClient';
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 10000, // Increase timeout for debugging purposes
+  maxRedirects: 5
 });
 
 api.interceptors.request.use(
