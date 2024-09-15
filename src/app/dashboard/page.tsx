@@ -1,4 +1,4 @@
-// src/app/dashboard/page.tsx
+// frontend/src/app/dashboard/page.tsx
 
 'use client';
 
@@ -28,6 +28,17 @@ export default function DashboardPage() {
       setChatbots(response.data);
     } catch (error) {
       console.error('Error fetching chatbots:', error);
+    }
+  };
+
+  const deleteChatbot = async (id: string) => {
+    if (window.confirm('Are you sure you want to delete this chatbot?')) {
+      try {
+        await api.delete(`/api/v1/chatbots/${id}`);
+        setChatbots(chatbots.filter(chatbot => chatbot.id !== id));
+      } catch (error) {
+        console.error('Error deleting chatbot:', error);
+      }
     }
   };
 
@@ -75,6 +86,12 @@ export default function DashboardPage() {
                     Edit
                   </button>
                 </Link>
+                <button
+                  onClick={() => deleteChatbot(chatbot.id)}
+                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           ))}
