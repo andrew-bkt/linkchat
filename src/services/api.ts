@@ -5,7 +5,10 @@ const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 10000,
   maxRedirects: 5,
-  withCredentials: true, // Add this line
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 // Add this before your interceptors
