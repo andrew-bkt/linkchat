@@ -14,6 +14,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ token }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -27,16 +28,34 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ token }) => {
     const userMessage = input.trim();
     if (!userMessage) return;
 
-    setMessages([...messages, { sender: 'user', content: userMessage }]);
+    setMessages(prevMessages => [...prevMessages, { sender: 'user', content: userMessage }]);
     setInput('');
     setIsLoading(true);
+    setError(null);
 
     try {
-      const response = await api.post(`/api/v1/chatbots/${token}/chat`, { message: userMessage });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+      const response = await api.post(`/api/v1/chatbots/${token}/chat`, 
+        { message: userMessage },
+        { signal: controller.signal }
+      );
+
+      clearTimeout(timeoutId);
+
       const botMessage = response.data.reply;
-      setMessages((prev) => [...prev, { sender: 'bot', content: botMessage }]);
-    } catch (error) {
+      setMessages(prevMessages => [...prevMessages, { sender: 'bot', content: botMessage }]);
+    } catch (error: any) {
       console.error('Error sending message:', error);
+      let errorMessage = 'An error occurred while sending the message.';
+      if (error.name === 'AbortError') {
+        errorMessage = 'The request timed out. Please try again.';
+      } else if (error.response) {
+        errorMessage = `Server error: ${error.response.data.detail || error.response.statusText}`;
+      }
+      setError(errorMessage);
+      setMessages(prevMessages => [...prevMessages, { sender: 'bot', content: errorMessage }]);
     } finally {
       setIsLoading(false);
     }
@@ -53,7 +72,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ token }) => {
             {msg.sender === 'bot' && (
               <div className="w-8 h-8 rounded-full bg-gray-300 flex-shrink-0 mr-2"></div>
             )}
-            <div className={`max-w-[70%] px-4 py-2 rounded-lg ${msg.sender === 'user' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-800'}`}>
+            <div className={`max-w-[70%] px-4 py-2 rounded-lg ${
+              msg.sender === 'user' ? 'bg-primary text-white' : 
+              error && index === messages.length - 1 ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'
+            }`}>
               <p>{msg.content}</p>
             </div>
             {msg.sender === 'user' && (
