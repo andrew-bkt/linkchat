@@ -1,3 +1,4 @@
+// frontend/src/components/ChatWindow.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import api from '../services/api';
 
@@ -35,7 +36,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ token }) => {
 
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 60000); // 30 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
 
       const response = await api.post(`/api/v1/chatbots/${token}/chat`, 
         { message: userMessage },
@@ -53,9 +54,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ token }) => {
         errorMessage = 'The request timed out. Please try again.';
       } else if (error.response) {
         errorMessage = `Server error: ${error.response.data.detail || error.response.statusText}`;
-      }
-      
-      if (error.message === 'timeout of 10000ms exceeded') {
+      } else if (error.message === 'timeout of 60000ms exceeded') {
         errorMessage = 'The request timed out. Please try again.';
       }
 

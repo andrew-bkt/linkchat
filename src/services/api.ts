@@ -1,9 +1,10 @@
+// frontend/src/services/api.ts
 import axios from 'axios';
 import supabase from '../utils/supabaseClient';
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  timeout: 10000,
+  timeout: 60000, // Increased to 60 seconds
   maxRedirects: 5,
   withCredentials: true,
   headers: {
