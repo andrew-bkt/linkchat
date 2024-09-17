@@ -3,6 +3,7 @@
 import './globals.css';
 import { ReactNode } from 'react';
 import Providers from './Providers';
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
   title: 'LLM Chat Application',
@@ -13,7 +14,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-background text-foreground">
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Analytics /> 
+        </Providers>
       </body>
     </html>
   );
