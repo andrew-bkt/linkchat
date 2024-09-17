@@ -54,6 +54,11 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ token }) => {
       } else if (error.response) {
         errorMessage = `Server error: ${error.response.data.detail || error.response.statusText}`;
       }
+      
+      if (error.message === 'timeout of 10000ms exceeded') {
+        errorMessage = 'The request timed out. Please try again.';
+      }
+
       setError(errorMessage);
       setMessages(prevMessages => [...prevMessages, { sender: 'bot', content: errorMessage }]);
     } finally {
