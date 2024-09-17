@@ -2,10 +2,14 @@ import axios from 'axios';
 import supabase from '../utils/supabaseClient';
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 10000,
   maxRedirects: 5,
+  withCredentials: true, // Add this line
 });
+
+// Add this before your interceptors
+console.log('API URL:', process.env.NEXT_PUBLIC_API_URL);
 
 api.interceptors.request.use(
   async (config) => {
