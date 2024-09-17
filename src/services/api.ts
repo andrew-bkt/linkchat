@@ -2,9 +2,9 @@ import axios from 'axios';
 import supabase from '../utils/supabaseClient';
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-  timeout: 10000, // 10 seconds timeout
-  maxRedirects: 5, // Allow up to 5 redirects
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+  timeout: 10000,
+  maxRedirects: 5,
 });
 
 api.interceptors.request.use(
