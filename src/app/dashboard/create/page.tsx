@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../../context/AuthContext';
 import api from '../../../services/api';
@@ -18,9 +18,11 @@ export default function CreateChatbotPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  if (!user) {
-    router.push('/login');
-  }
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  }, [user]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -32,32 +34,38 @@ export default function CreateChatbotPage() {
     setFiles(files.filter((_, i) => i !== index));
   };
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsLoading(true);
-  setErrorMessage('');
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setErrorMessage('');
 
-  const formData = new FormData();
-  formData.append('name', name);
-  formData.append('instructions', instructions);
-  formData.append('tone', tone);
-  files.forEach((file) => formData.append('files', file));
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('instructions', instructions);
+    formData.append('tone', tone);
+    files.forEach((file) => formData.append('files', file));
 
-  try {
-    const response = await api.post('/api/v1/chatbots', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    router.push(`/dashboard/${response.data.id}`);
-  } catch (error: any) {
-    console.error('Error creating chatbot:', error);
-    setErrorMessage(error.response?.data?.detail || error.message || 'Error creating chatbot');
-  } finally {
-    setIsLoading(false);
-  }
-};
-
+    try {
+      const response = await api.post('/api/v1/chatbots', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log('Full response:', response);
+      if (response.data && response.data.id) {
+        router.push('/dashboard'); // Change this line to navigate to the dashboard
+      } else {
+        console.error('Invalid response:', response);
+        throw new Error('Chatbot ID not received');
+      }
+    } catch (error: any) {
+      console.error('Error creating chatbot:', error);
+      console.error('Error response:', error.response);
+      setErrorMessage(error.response?.data?.detail || error.message || 'Error creating chatbot');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
@@ -179,3 +187,5 @@ const handleSubmit = async (e: React.FormEvent) => {
     </div>
   );
 }
+
+
