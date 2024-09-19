@@ -1,5 +1,7 @@
 // frontend/src/components/SurveyBotForm.tsx
 
+"use client";
+
 import { useState } from 'react';
 import { SurveyBot, SurveyQuestion } from '../types';
 
