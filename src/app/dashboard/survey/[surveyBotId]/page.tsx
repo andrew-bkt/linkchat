@@ -4,7 +4,7 @@
 
 
 import { useState } from 'react';
-import { SurveyBot, SurveyQuestion } from '../types';
+import { SurveyBot, SurveyQuestion } from '../../../../types';
 
 type SurveyBotFormProps = {
   onSubmit: (data: Partial<SurveyBot>) => void;

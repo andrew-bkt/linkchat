@@ -5,7 +5,7 @@
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../../context/AuthContext';
 import api from '../../../services/api';
-import SurveyBotForm from '../../../components/SurveyBotForm';
+import SurveyBotForm from '../../../components/create-bot/SurveyBotForm';
 import { SurveyBot } from '../../../types';
 
 export default function CreateSurveyBotPage() {
