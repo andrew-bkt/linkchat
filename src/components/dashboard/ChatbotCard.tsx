@@ -18,7 +18,7 @@ export default function ChatbotCard({ chatbot, deleteChatbot }: ChatbotCardProps
     <div className="bg-white overflow-hidden shadow rounded-lg">
       <div className="px-4 py-5 sm:p-6">
         <div className="flex items-center">
-          <div className="flex-shrink-0 bg-blue-500 rounded-md p-3">
+          <div className="flex-shrink-0 bg-indigo-700 rounded-md p-3">
             <ChatBubbleLeftRightIcon className="h-6 w-6 text-white" aria-hidden="true" />
           </div>
           <div className="ml-5 w-0 flex-1">
@@ -26,7 +26,7 @@ export default function ChatbotCard({ chatbot, deleteChatbot }: ChatbotCardProps
           </div>
         </div>
         <div className="mt-4 flex items-center">
-          <Link href={`/chat/${chatbot.token}`} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <Link href={`/chat/${chatbot.token}`} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-700 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
             View chat
           </Link>
           <button

@@ -35,7 +35,7 @@ export default function Navbar() {
 
   return (
     <motion.nav 
-      className="w-screen bg-indigo-900 text-white"
+      className="w-screen bg-slate-700 text-white"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

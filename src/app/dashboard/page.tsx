@@ -88,13 +88,13 @@ export default function DashboardPage() {
           </div>
           <div className="mb-8 flex space-x-4">
             <Link href="/dashboard/create">
-              <button className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              <button className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-700 hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                 <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
                 Create New Chatbot
               </button>
             </Link>
             <Link href="/dashboard/create-survey">
-              <button className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+              <button className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-pink-700 hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                 <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
                 Create New Survey Bot
               </button>

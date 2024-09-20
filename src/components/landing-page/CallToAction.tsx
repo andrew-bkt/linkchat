@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 
 export default function CallToAction() {
   return (
-    <section className="w-screen bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 relative overflow-hidden">
+    <section className="w-full relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:60px_60px]" />
       <div className="w-full px-4 sm:px-6 lg:px-8 relative py-24 sm:py-32">
         <div className="text-center">

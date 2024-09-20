@@ -8,9 +8,8 @@ import { Bot, Link as LinkIcon, FileText } from 'lucide-react'
 
 export default function Hero() {
   return (
-    <section className="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 relative overflow-hidden">
+    <section className="w-full relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:60px_60px]" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative py-24 sm:py-32">
         <motion.div
           className="w-full max-w-3xl mx-auto"
@@ -49,17 +48,6 @@ export default function Hero() {
           />
         </motion.div>
       </div>
-      <motion.div
-        className="absolute bottom-0 left-0 right-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.6 }}
-      >
-        <svg className="w-full text-indigo-900" viewBox="0 0 1440 120" fill="currentColor" preserveAspectRatio="none">
-          <path d="M0 0l60 10C120 20 240 40 360 45s240-5 360-20 240-35 360-35 240 20 360 40 240 30 300 35l60 5v50H0V0z" />
-        </svg>
-      </motion.div>
-      <div className="h-32 bg-gradient-to-b from-transparent to-indigo-900"></div>
     </section>
   )
 }
