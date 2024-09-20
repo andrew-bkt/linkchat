@@ -1,5 +1,6 @@
 // frontend/src/components/SurveyBotCard.tsx
 
+
 'use client';
 
 import Link from 'next/link';
@@ -10,6 +11,7 @@ interface SurveyBotCardProps {
   surveyBot: SurveyBot;
   deleteSurveyBot: (id: string) => void;
 }
+
 
 export default function SurveyBotCard({ surveyBot, deleteSurveyBot }: SurveyBotCardProps) {
   return (
