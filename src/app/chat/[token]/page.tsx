@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import ChatWindow from '../../../components/ChatWindow';
+import ChatWindow from '../../../components/chat/ChatWindow';
 import ChatHeader from '../../../components/chat/ChatHeader';
 
 export default function ChatPage() {
