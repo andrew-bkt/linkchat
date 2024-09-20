@@ -10,7 +10,7 @@ import { Chatbot } from '../../../types';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-const ChatbotForm = dynamic(() => import('../../../components/ChatbotForm'), { ssr: false });
+const ChatbotForm = dynamic(() => import('../../../components/create-bot/ChatbotForm'), { ssr: false });
 
 export default function ChatbotDetailsPage() {
   const { user } = useAuth();

@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import ChatWindow from '../../../components/ChatWindow';
-import ChatHeader from '../../../components/ChatHeader';
+import ChatHeader from '../../../components/chat/ChatHeader';
 
 export default function ChatPage() {
   const { token } = useParams();

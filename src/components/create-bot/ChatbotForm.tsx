@@ -1,8 +1,8 @@
 // frontend/src/components/ChatbotForm.tsx
 
 import { useState, useRef } from 'react';
-import { Chatbot } from '../types';
-import api from '../services/api';
+import { Chatbot } from '../../types';
+import api from '../../services/api';
 
 interface ChatbotFormProps {
   chatbot: Chatbot;

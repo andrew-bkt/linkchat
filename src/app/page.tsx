@@ -1,9 +1,9 @@
 // frontend/src/app/page.tsx
 
-import Hero from '../components/Hero';
-import Features from '../components/Features';
-import Testimonials from '../components/Testimonials';
-import CallToAction from '../components/CallToAction';
+import Hero from '../components/landing-page/Hero';
+import Features from '../components/landing-page/Features';
+import Testimonials from '../components/landing-page/Testimonials';
+import CallToAction from '../components/landing-page/CallToAction';
 
 export default function HomePage() {
   return (

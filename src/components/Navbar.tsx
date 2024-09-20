@@ -1,48 +1,52 @@
-// frontend/src/components/Navbar.tsx
+'use client'
 
-'use client';
-
-import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
-import { useAuth } from '../context/AuthContext';
-import { ArrowLeft, Home, Menu, X } from 'react-feather';
-import { useState } from 'react';
+import Link from 'next/link'
+import { useRouter, usePathname } from 'next/navigation'
+import { useAuth } from '../context/AuthContext'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Home, Menu, X, LogOut, LogIn, UserPlus } from 'lucide-react'
 
 export default function Navbar() {
-  const { user, signOut } = useAuth();
-  const router = useRouter();
-  const pathname = usePathname();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth()
+  const router = useRouter()
+  const pathname = usePathname()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleLogout = async () => {
-    await signOut();
-    router.push('/login');
-  };
+    await signOut()
+    router.push('/login')
+  }
 
-  const isHomePage = pathname === '/';
-  const isDashboard = pathname === '/dashboard';
-  const isChatPage = pathname.startsWith('/chat/');
+  const isHomePage = pathname === '/'
+  const isDashboard = pathname === '/dashboard'
+  const isChatPage = pathname.startsWith('/chat/')
 
   return (
-    <nav className="bg-white border-b border-gray-200">
+    <motion.nav 
+      className="bg-indigo-900 text-white"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex">
-            <div className="flex-shrink-0 flex items-center">
-              <Link href="/" className="text-2xl font-bold text-primary">
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center">
+              <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
                 LinkChat
-              </Link>
-            </div>
+              </span>
+            </Link>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               {!isHomePage && (
-                <Link href="/" className="text-gray-500 hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 border-transparent">
+                <NavLink href="/" icon={<Home className="w-5 h-5 mr-1" />}>
                   Home
-                </Link>
+                </NavLink>
               )}
               {user && !isDashboard && (
-                <Link href="/dashboard" className="text-gray-500 hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 border-transparent">
+                <NavLink href="/dashboard">
                   Dashboard
-                </Link>
+                </NavLink>
               )}
             </div>
           </div>
@@ -50,17 +54,19 @@ export default function Navbar() {
             {user ? (
               <button
                 onClick={handleLogout}
-                className="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-900 bg-white hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
               >
+                <LogOut className="w-5 h-5 mr-2" />
                 Logout
               </button>
             ) : (
               <>
-                <Link href="/login" className="text-gray-500 hover:text-primary">
+                <NavLink href="/login" icon={<LogIn className="w-5 h-5 mr-1" />}>
                   Login
-                </Link>
+                </NavLink>
                 <Link href="/signup">
-                  <button className="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                  <button className="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-900 bg-white hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                    <UserPlus className="w-5 h-5 mr-2" />
                     Sign Up
                   </button>
                 </Link>
@@ -70,7 +76,7 @@ export default function Navbar() {
           <div className="-mr-2 flex items-center sm:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+              className="inline-flex items-center justify-center p-2 rounded-md text-indigo-200 hover:text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -79,38 +85,68 @@ export default function Navbar() {
       </div>
 
       {isMenuOpen && (
-        <div className="sm:hidden">
+        <motion.div 
+          className="sm:hidden bg-indigo-800"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
           <div className="pt-2 pb-3 space-y-1">
             {!isHomePage && (
-              <Link href="/" className="text-gray-500 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">
+              <MobileNavLink href="/" icon={<Home className="w-5 h-5 mr-2" />}>
                 Home
-              </Link>
+              </MobileNavLink>
             )}
             {user && !isDashboard && (
-              <Link href="/dashboard" className="text-gray-500 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">
+              <MobileNavLink href="/dashboard">
                 Dashboard
-              </Link>
+              </MobileNavLink>
             )}
             {user ? (
               <button
                 onClick={handleLogout}
-                className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-primary hover:bg-gray-50"
+                className="w-full text-left flex items-center px-3 py-2 text-base font-medium text-indigo-200 hover:text-white hover:bg-indigo-700 transition duration-150 ease-in-out"
               >
+                <LogOut className="w-5 h-5 mr-2" />
                 Logout
               </button>
             ) : (
               <>
-                <Link href="/login" className="text-gray-500 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">
+                <MobileNavLink href="/login" icon={<LogIn className="w-5 h-5 mr-2" />}>
                   Login
-                </Link>
-                <Link href="/signup" className="text-gray-500 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">
+                </MobileNavLink>
+                <MobileNavLink href="/signup" icon={<UserPlus className="w-5 h-5 mr-2" />}>
                   Sign Up
-                </Link>
+                </MobileNavLink>
               </>
             )}
           </div>
-        </div>
+        </motion.div>
       )}
-    </nav>
-  );
+    </motion.nav>
+  )
+}
+
+function NavLink({ href, children, icon }) {
+  return (
+    <Link 
+      href={href} 
+      className="text-indigo-200 hover:text-white inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 border-transparent hover:border-white transition duration-150 ease-in-out"
+    >
+      {icon}
+      {children}
+    </Link>
+  )
+}
+
+function MobileNavLink({ href, children, icon }) {
+  return (
+    <Link 
+      href={href} 
+      className="text-indigo-200 hover:text-white flex items-center px-3 py-2 text-base font-medium hover:bg-indigo-700 transition duration-150 ease-in-out"
+    >
+      {icon}
+      {children}
+    </Link>
+  )
 }

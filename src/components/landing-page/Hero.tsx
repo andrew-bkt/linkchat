@@ -1,16 +1,18 @@
+// frontend/src/components/landing-page/Hero.tsx
+
 'use client'
 
 import { motion } from 'framer-motion'
-import { Bot, Link as LinkIcon, FileText, Send } from 'lucide-react'
+import { Bot, Link as LinkIcon, FileText } from 'lucide-react'
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
+    <section className="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:60px_60px]" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-      <div className="container relative mx-auto px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
+      <div className="container-full relative py-24 sm:py-32">
         <motion.div
-          className="max-w-3xl"
+          className="w-full max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -24,7 +26,7 @@ export default function Hero() {
           </p>
         </motion.div>
         <motion.div
-          className="mt-12 flex flex-wrap gap-6"
+          className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -63,7 +65,7 @@ export default function Hero() {
 function FeatureCard({ icon, title, description }) {
   return (
     <motion.div
-      className="flex-1 rounded-2xl bg-white/10 p-6 backdrop-blur-lg"
+      className="w-full rounded-2xl bg-white/10 p-6 backdrop-blur-lg"
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300 }}
     >
