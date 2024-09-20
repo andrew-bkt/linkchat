@@ -1,6 +1,6 @@
 // frontend/src/components/ChatWindow.tsx
 import React, { useState, useEffect, useRef } from 'react';
-import api from '../services/api';
+import api from '../../services/api';
 
 interface Message {
   sender: 'user' | 'bot';
