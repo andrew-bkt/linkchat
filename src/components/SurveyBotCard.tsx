@@ -1,19 +1,19 @@
-// frontend/src/components/SurveyBotCard.tsx
-
-
 'use client';
 
 import Link from 'next/link';
 import { SurveyBot } from '../types';
-import { ClipboardDocumentListIcon, TrashIcon, PencilIcon, ChartBarIcon } from '@heroicons/react/24/outline';
+import { ClipboardDocumentListIcon, TrashIcon, PencilIcon, ChartBarIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 
 interface SurveyBotCardProps {
   surveyBot: SurveyBot;
   deleteSurveyBot: (id: string) => void;
 }
 
-
 export default function SurveyBotCard({ surveyBot, deleteSurveyBot }: SurveyBotCardProps) {
+  const copySurveyLink = () => {
+    navigator.clipboard.writeText(`${window.location.origin}/survey-chat/${surveyBot.token}`);
+  };
+
   return (
     <div className="bg-white overflow-hidden shadow rounded-lg">
       <div className="px-4 py-5 sm:p-6">
@@ -22,23 +22,23 @@ export default function SurveyBotCard({ surveyBot, deleteSurveyBot }: SurveyBotC
             <ClipboardDocumentListIcon className="h-6 w-6 text-white" aria-hidden="true" />
           </div>
           <div className="ml-5 w-0 flex-1">
-            <dl>
-              <dt className="text-sm font-medium text-gray-500 truncate">{surveyBot.name}</dt>
-              <dd>
-                <div className="text-lg font-medium text-gray-900">
-                  {surveyBot.instructions ? surveyBot.instructions.substring(0, 50) + '...' : 'No instructions'}
-                </div>
-              </dd>
-            </dl>
+            <h2 className="text-2xl font-bold text-gray-900">{surveyBot.name}</h2>
           </div>
+        </div>
+        <div className="mt-4 flex items-center">
+          <Link href={`/survey-chat/${surveyBot.token}`} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            Take survey
+          </Link>
+          <button
+            onClick={copySurveyLink}
+            className="ml-2 inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            title="Copy survey link"
+          >
+            <ClipboardIcon className="h-5 w-5" aria-hidden="true" />
+          </button>
         </div>
       </div>
       <div className="bg-gray-50 px-4 py-4 sm:px-6">
-        <div className="text-sm">
-          <Link href={`/survey-chat/${surveyBot.token}`} className="font-medium text-green-600 hover:text-green-500">
-          Take survey
-          </Link>
-        </div>
         <div className="mt-3 flex space-x-3">
           <Link href={`/dashboard/survey/${surveyBot.id}`}>
             <button className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
