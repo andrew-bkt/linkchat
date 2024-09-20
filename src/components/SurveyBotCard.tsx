@@ -1,5 +1,7 @@
 // frontend/src/components/SurveyBotCard.tsx
 
+'use client';
+
 import Link from 'next/link';
 import { SurveyBot } from '../types';
 import { ClipboardDocumentListIcon, TrashIcon, PencilIcon, ChartBarIcon } from '@heroicons/react/24/outline';
