@@ -7,10 +7,21 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Home, Menu, X, LogOut, LogIn, UserPlus } from 'lucide-react'
 
+interface AuthContextType {
+  user: any; // Replace 'any' with the actual user type
+  signOut: () => Promise<void>;
+}
+
+interface NavLinkProps {
+  href: string;
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+}
+
 export default function Navbar() {
-  const { user, signOut } = useAuth()
+  const { user, signOut } = useAuth() as AuthContextType
   const router = useRouter()
-  const pathname = usePathname()
+  const pathname = usePathname() as string
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleLogout = async () => {
@@ -127,7 +138,7 @@ export default function Navbar() {
   )
 }
 
-function NavLink({ href, children, icon }) {
+function NavLink({ href, children, icon }: NavLinkProps) {
   return (
     <Link 
       href={href} 
@@ -139,7 +150,7 @@ function NavLink({ href, children, icon }) {
   )
 }
 
-function MobileNavLink({ href, children, icon }) {
+function MobileNavLink({ href, children, icon }: NavLinkProps) {
   return (
     <Link 
       href={href} 
@@ -150,3 +161,4 @@ function MobileNavLink({ href, children, icon }) {
     </Link>
   )
 }
+

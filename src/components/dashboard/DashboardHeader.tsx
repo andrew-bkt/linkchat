@@ -1,6 +1,6 @@
 // frontend/src/components/DashboardHeader.tsx
 
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { UserCircleIcon } from '@heroicons/react/24/solid';
 
 export default function DashboardHeader() {

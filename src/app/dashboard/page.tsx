@@ -8,9 +8,9 @@ import { useAuth } from '../../context/AuthContext';
 import api from '../../services/api';
 import { Chatbot, SurveyBot } from '../../types';
 import Link from 'next/link';
-import DashboardHeader from '../../components/DashboardHeader';
-import ChatbotCard from '../../components/ChatbotCard';
-import SurveyBotCard from '../../components/SurveyBotCard';
+import DashboardHeader from '../../components/dashboard/DashboardHeader';
+import ChatbotCard from '../../components/dashboard/ChatbotCard';
+import SurveyBotCard from '../../components/dashboard/SurveyBotCard';
 import { PlusIcon } from '@heroicons/react/24/outline';
 
 export default function DashboardPage() {
