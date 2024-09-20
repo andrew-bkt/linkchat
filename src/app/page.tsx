@@ -7,7 +7,7 @@ import CallToAction from '../components/landing-page/CallToAction';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="w-full">
       <Hero />
       <Features />
       <Testimonials />

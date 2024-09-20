@@ -7,9 +7,9 @@ import { Star } from 'lucide-react'
 
 export default function Testimonials() {
   return (
-    <section className="relative flex-1 overflow-hidden bg-indigo-900 py-24 sm:py-32">
+    <section className="w-screen bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:60px_60px]" />
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8 relative py-24 sm:py-32">
         <div className="flex flex-col items-center">
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Trusted by Innovators Worldwide

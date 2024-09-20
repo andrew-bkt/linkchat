@@ -3,6 +3,7 @@
 import './globals.css';
 import { ReactNode } from 'react';
 import Providers from './Providers';
+import Navbar from '../components/Navbar';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
@@ -11,12 +12,16 @@ export const metadata = {
   description: 'An application to create and share chatbots',
 };
 
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="h-full">
-      <body className="bg-background text-foreground h-full flex flex-col">
+    <html lang="en" className="w-full h-full">
+      <body className="w-full min-h-screen">
         <Providers>
-          {children}
+          <Navbar />
+          <main className="w-full overflow-x-hidden">
+            {children}
+          </main>
           <Analytics /> 
           <SpeedInsights/>
         </Providers>

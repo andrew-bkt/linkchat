@@ -5,12 +5,13 @@
 import { motion } from 'framer-motion'
 import { Bot, Link as LinkIcon, FileText } from 'lucide-react'
 
+
 export default function Hero() {
   return (
     <section className="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:60px_60px]" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-      <div className="container-full relative py-24 sm:py-32">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative py-24 sm:py-32">
         <motion.div
           className="w-full max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
@@ -58,6 +59,7 @@ export default function Hero() {
           <path d="M0 0l60 10C120 20 240 40 360 45s240-5 360-20 240-35 360-35 240 20 360 40 240 30 300 35l60 5v50H0V0z" />
         </svg>
       </motion.div>
+      <div className="h-32 bg-gradient-to-b from-transparent to-indigo-900"></div>
     </section>
   )
 }

@@ -35,12 +35,12 @@ export default function Navbar() {
 
   return (
     <motion.nav 
-      className="bg-indigo-900 text-white"
+      className="w-screen bg-indigo-900 text-white"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">

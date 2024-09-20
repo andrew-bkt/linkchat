@@ -5,11 +5,12 @@
 import { motion } from 'framer-motion'
 import { Bot, Link as LinkIcon, FileText, Zap, Shield, Globe } from 'lucide-react'
 
+
 export default function Features() {
   return (
-    <section className="relative flex-1 overflow-hidden bg-gradient-to-b from-indigo-900 to-purple-900 py-24 sm:py-32">
+    <section className="w-full bg-indigo-900 relative overflow-hidden pt-16">
       <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:60px_60px]" />
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative py-24 sm:py-32">
         <div className="text-center">
           <motion.h2 
             className="text-3xl font-bold tracking-tight text-white sm:text-4xl"
