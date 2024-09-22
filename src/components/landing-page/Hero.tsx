@@ -1,14 +1,14 @@
-// frontend/src/components/landing-page/Hero.tsx
+// frontend/src/app/dashboard/create/page.tsx
 
 'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '../../context/AuthContext'; // Updated import path
-import api from '../../services/api';
+import { useAuth } from '../../../context/AuthContext';
+import api from '../../../services/api';
 import { DocumentPlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
-export default function Hero() {
+export default function CreateChatbotPage() {
   const { user } = useAuth();
   const [name, setName] = useState('');
   const [instructions, setInstructions] = useState('');
