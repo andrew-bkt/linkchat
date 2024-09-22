@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../../context/AuthContext';
 import api from '../../../services/api';
-import { DocumentPlusIcon } from '@heroicons/react/24/outline';
+import { DocumentPlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 export default function CreateChatbotPage() {
   const { user } = useAuth();
@@ -51,141 +51,162 @@ export default function CreateChatbotPage() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('Full response:', response);
       if (response.data && response.data.id) {
-        router.push('/dashboard'); // Change this line to navigate to the dashboard
+        router.push('/dashboard');
       } else {
-        console.error('Invalid response:', response);
         throw new Error('Chatbot ID not received');
       }
     } catch (error: any) {
-      console.error('Error creating chatbot:', error);
-      console.error('Error response:', error.response);
-      setErrorMessage(error.response?.data?.detail || error.message || 'Error creating chatbot');
+      setErrorMessage(
+        error.response?.data?.detail || error.message || 'Error creating chatbot'
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-      <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-          <div className="max-w-md mx-auto">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        <div className="text-center">
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Create New Chatbot</h2>
+          <p className="mt-2 text-sm text-gray-600">Fill in the details below to get started.</p>
+        </div>
+        <form onSubmit={handleSubmit} className="mt-8 space-y-6" noValidate>
+          <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <h1 className="text-2xl font-semibold">Create New Chatbot</h1>
+              <label htmlFor="name" className="sr-only">
+                Chatbot Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                className="appearance-none rounded-t-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                placeholder="Chatbot Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
-            <div className="divide-y divide-gray-200">
-              <form onSubmit={handleSubmit} className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                <div className="relative">
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-primary"
-                    placeholder="Chatbot name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                  <label htmlFor="name" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
-                    Chatbot Name
-                  </label>
-                </div>
-                <div className="relative">
-                  <textarea
-                    id="instructions"
-                    name="instructions"
-                    className="peer placeholder-transparent h-20 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-primary"
-                    placeholder="Instructions"
-                    value={instructions}
-                    onChange={(e) => setInstructions(e.target.value)}
-                  ></textarea>
-                  <label htmlFor="instructions" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
-                    Instructions
-                  </label>
-                </div>
-                <div className="relative">
-                  <input
-                    id="tone"
-                    name="tone"
-                    type="text"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-primary"
-                    placeholder="Tone"
-                    value={tone}
-                    onChange={(e) => setTone(e.target.value)}
-                  />
-                  <label htmlFor="tone" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
-                    Tone
-                  </label>
-                </div>
-                <div className="relative">
-                  <input
-                    type="file"
-                    multiple
-                    onChange={handleFileChange}
-                    className="hidden"
-                    id="file-upload"
-                  />
-                  <label
-                    htmlFor="file-upload"
-                    className="cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary-dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary"
-                  >
-                    <span className="inline-flex items-center">
-                      <DocumentPlusIcon className="h-5 w-5 mr-2" />
-                      Upload documents
-                    </span>
-                  </label>
-                </div>
-                {files.length > 0 && (
-                  <div>
-                    <h3 className="text-sm font-medium mb-2">Selected Files:</h3>
-                    <ul className="list-disc pl-5">
-                      {files.map((file, index) => (
-                        <li key={index} className="flex items-center justify-between text-sm">
-                          <span>{file.name}</span>
-                          <button
-                            type="button"
-                            onClick={() => removeFile(index)}
-                            className="text-red-500 hover:text-red-700"
-                          >
-                            Remove
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {errorMessage && (
-                  <p className="text-red-500 text-sm">{errorMessage}</p>
-                )}
-                <div className="relative">
-                  <button
-                    type="submit"
-                    className="bg-primary text-white rounded-md px-4 py-2 hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary w-full"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? (
-                      <span className="flex items-center justify-center">
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Creating Chatbot...
-                      </span>
-                    ) : (
-                      'Create Chatbot'
-                    )}
-                  </button>
-                </div>
-              </form>
+            <div>
+              <label htmlFor="instructions" className="sr-only">
+                Instructions
+              </label>
+              <textarea
+                id="instructions"
+                name="instructions"
+                rows={4}
+                className="appearance-none relative block w-full px-3 py-2 border border-t-0 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                placeholder="Instructions"
+                value={instructions}
+                onChange={(e) => setInstructions(e.target.value)}
+              ></textarea>
+            </div>
+            <div>
+              <label htmlFor="tone" className="sr-only">
+                Tone
+              </label>
+              <input
+                id="tone"
+                name="tone"
+                type="text"
+                className="appearance-none rounded-b-md relative block w-full px-3 py-2 border border-t-0 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                placeholder="Tone"
+                value={tone}
+                onChange={(e) => setTone(e.target.value)}
+              />
             </div>
           </div>
-        </div>
+
+          <div className="space-y-2">
+            <div>
+              <label htmlFor="file-upload" className="block text-sm font-medium text-gray-700">
+                Upload Documents
+              </label>
+              <div className="mt-1 flex items-center">
+                <label
+                  htmlFor="file-upload"
+                  className="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-primary bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                >
+                  <DocumentPlusIcon className="h-5 w-5 mr-2" />
+                  Upload Files
+                </label>
+                <input
+                  id="file-upload"
+                  name="file-upload"
+                  type="file"
+                  multiple
+                  onChange={handleFileChange}
+                  className="sr-only"
+                />
+              </div>
+            </div>
+            {files.length > 0 && (
+              <div>
+                <h3 className="text-sm font-medium text-gray-700">Selected Files:</h3>
+                <ul className="mt-2 space-y-1">
+                  {files.map((file, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center justify-between text-sm text-gray-700 bg-gray-100 px-3 py-2 rounded-md"
+                    >
+                      <span>{file.name}</span>
+                      <button
+                        type="button"
+                        onClick={() => removeFile(index)}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        <XMarkIcon className="h-5 w-5" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {errorMessage && (
+            <p className="text-red-500 text-sm text-center">{errorMessage}</p>
+          )}
+
+          <div>
+            <button
+              type="submit"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span className="flex items-center">
+                  <svg
+                    className="animate-spin h-5 w-5 text-white mr-3"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Creating Chatbot...
+                </span>
+              ) : (
+                'Create Chatbot'
+              )}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
 }
-
-
