@@ -18,7 +18,7 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl xl:text-6xl">
-            <span className="block">Revolutionize Data Sharing and Gathering</span>
+            <span className="block">Share and Gather Data</span>
             <span className="block text-pink-300">Through Conversations</span>
           </h1>
           <p className="mt-6 text-xl text-gray-300">

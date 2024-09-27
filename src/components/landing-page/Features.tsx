@@ -1,10 +1,7 @@
-// frontend/src/components/landing-page/Features.tsx
-
 'use client'
 
 import { motion } from 'framer-motion'
-import { Bot, Link as LinkIcon, FileText, Zap, Shield, Globe } from 'lucide-react'
-
+import { Bot, Link as LinkIcon, FileText, BarChart2, Settings, Globe } from 'lucide-react'
 
 export default function Features() {
   return (
@@ -18,7 +15,7 @@ export default function Features() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            Powerful Features for Seamless Interaction
+            Create and Share Custom AI Bots
           </motion.h2>
           <motion.p 
             className="mx-auto mt-3 max-w-2xl text-xl text-gray-300"
@@ -26,40 +23,40 @@ export default function Features() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Discover how LinkChat can transform your communication and data gathering processes.
+            Build chatbots and survey bots using your own data and specific instructions for efficient communication and information gathering.
           </motion.p>
         </div>
 
         <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           <FeatureCard
             icon={<Bot className="h-8 w-8" />}
-            title="AI-Powered Chatbots"
-            description="Create custom chatbots trained on your specific data for intelligent interactions."
-          />
-          <FeatureCard
-            icon={<LinkIcon className="h-8 w-8" />}
-            title="Shareable Chat Links"
-            description="Generate unique links to your configured chats for easy sharing and collaboration."
+            title="Personalized Chatbots"
+            description="Load your own files and data to create chatbots that provide tailored responses."
           />
           <FeatureCard
             icon={<FileText className="h-8 w-8" />}
-            title="Interactive Surveys"
-            description="Conduct engaging, conversational surveys that adapt to user responses."
+            title="Configurable Survey Bots"
+            description="Design surveys with specific questions to gather detailed responses."
           />
           <FeatureCard
-            icon={<Zap className="h-8 w-8" />}
-            title="Real-time Insights"
-            description="Gain immediate understanding from chat interactions and survey responses."
+            icon={<BarChart2 className="h-8 w-8" />}
+            title="Insightful Dashboards"
+            description="Analyze survey results with comprehensive dashboards."
           />
           <FeatureCard
-            icon={<Shield className="h-8 w-8" />}
-            title="Secure Data Handling"
-            description="Ensure your sensitive information is protected with advanced security measures."
+            icon={<LinkIcon className="h-8 w-8" />}
+            title="Easy Sharing via Links"
+            description="Share your bots effortlessly through unique links."
+          />
+          <FeatureCard
+            icon={<Settings className="h-8 w-8" />}
+            title="Customizable Instructions"
+            description="Define specific guidelines to direct bot interactions."
           />
           <FeatureCard
             icon={<Globe className="h-8 w-8" />}
-            title="Multi-language Support"
-            description="Communicate effectively with users around the world in their preferred language."
+            title="Global Accessibility"
+            description="Reach users anywhere with easily shareable bots."
           />
         </div>
       </div>
@@ -85,4 +82,3 @@ function FeatureCard({ icon, title, description }) {
     </motion.div>
   )
 }
-

@@ -8,6 +8,7 @@
 @layer base {
   html,
   body {
+    height: 100%;
     margin: 0;
     padding: 0;
     width: 100vw;
@@ -32,9 +33,6 @@
   .container-full {
     @apply w-full px-4 sm:px-6 lg:px-8;
   }
-
-
-
 
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
